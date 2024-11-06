@@ -1,15 +1,23 @@
-const express = require("express");
+// index.js
+const express = require('express');
 const app = express();
-const port = 8080;
+const PORT = process.env.PORT || 3000;
 
-app.get("/", (req, res) => {
-    res.send("Hello from Express API!");
+app.use(express.json());
+
+app.get('/', (req, res) => {
+  res.json({ message: 'Welcome to my API!' });
 });
 
-app.get("/api/data", (req, res) => {
-    res.json({ message: "Here is some data!" });
+app.get('/api/data', (req, res) => {
+  res.json({ data: 'This is some data from the API' });
 });
 
-app.listen(port, () => {
-    console.log(`API listening at http://localhost:${port}`);
+app.post('/api/data', (req, res) => {
+  const { name } = req.body;
+  res.json({ message: `Hello, ${name}!` });
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });
